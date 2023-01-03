@@ -1,0 +1,43 @@
+﻿<RibbonWindow x:Class="UI.PessoaUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:UI.ViewModel"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="PessoaUI" Height="290" MaxHeight="290" MinHeight="290" MinWidth="330" MaxWidth="500">
+    <Grid DataContext="{Binding PessoaViewModel,Mode=OneWay, UpdateSourceTrigger=Explicit}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Ribbon Grid.ColumnSpan="2">
+            <RibbonTab Header="Funcoes">
+                <RibbonGroup Header="Funcoes">
+                    <RibbonButton LargeImageSource="{StaticResource ImageUser}" Label="Salvar" Command="{Binding InserePessoaCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <RibbonButton Label="Novo" SmallImageSource="{StaticResource ImageAdd}" Command="{Binding NovaPessoaCommand,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Codigo:"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Nome:"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Sexo:"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Nascimento:"/>
+        <TextBox Grid.Column="1" Grid.Row="1" IsEnabled="False" Text="{Binding Codigo, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Nome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" Width="Auto"/>
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+            <RadioButton Content="Masculino" IsChecked="{Binding IsMasculino, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <RadioButton Content="Feminino" IsChecked="{Binding IsFeminino, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <RadioButton Content="Outro" IsChecked="{Binding IsOutro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <DatePicker Grid.Row="4" Grid.Column="1" Width="100" SelectedDate="{Binding Nascimento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left"/>
+    </Grid>
+</RibbonWindow>

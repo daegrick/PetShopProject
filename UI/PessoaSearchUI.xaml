@@ -1,0 +1,49 @@
+﻿<RibbonWindow x:Class="UI.PessoaSearchUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converter="clr-namespace:UI.Converters"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="PessoaSearchUI" Height="450" Width="800">
+    <RibbonWindow.Resources>
+        <converter:IdadeConverter x:Key="IdadeConverter"/>
+    </RibbonWindow.Resources>
+    <Grid DataContext="{Binding BuscaPessoaViewModel,Mode=OneWay}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel >
+            <Ribbon Grid.Row="0" Grid.ColumnSpan="2">
+                <RibbonTab Header="Busca">
+                    <RibbonGroup Header="Funções">
+                        <RibbonButton LargeImageSource="{StaticResource ImageSearch}" Label="Buscar"/>
+                    </RibbonGroup>
+                </RibbonTab>
+            </Ribbon>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Nome:"/>
+                <TextBox Grid.Column="1" Text="{Binding PesquisaNome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding BuscaPessoaCommand, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+            </Grid>
+
+        </StackPanel>
+        <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False" Margin="5"
+                  ItemsSource="{Binding Pessoas, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Nome, Mode=OneWay}" Width="3*"/>
+                <DataGridTextColumn Header="Idade" Binding="{Binding Nascimento, Mode=OneWay,Converter={StaticResource IdadeConverter}}" Width="*"/>
+                <DataGridTextColumn Header="Raca" Width="2*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</RibbonWindow>

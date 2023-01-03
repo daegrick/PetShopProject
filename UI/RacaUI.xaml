@@ -1,0 +1,51 @@
+﻿<RibbonWindow x:Class="UI.RacaUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:UI.ViewModel"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="RacaUI" Height="450" Width="350">
+    <RibbonWindow.DataContext>
+        <viewModel:RacaViewModel/>
+    </RibbonWindow.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Ribbon>
+            <RibbonTab Header="Funcoes">
+                <RibbonGroup Header="Gerenciar">
+                    <RibbonButton LargeImageSource="{StaticResource ImageAdd}" Label="Salvar" Command="{Binding InsereRacaCommand, Mode=OneWay}"/>
+                    <RibbonButton SmallImageSource="{StaticResource ImageAdd}" Label="Novo"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        <ListBox Grid.Row="1" ItemsSource="{Binding Racas, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                 SelectedItem="{Binding SelectedRaca,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Nome, Mode=OneWay}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Código:"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Nome:"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedRacaCodigo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedRacaNome,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+    </Grid>
+</RibbonWindow>

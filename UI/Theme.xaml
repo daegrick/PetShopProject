@@ -1,0 +1,126 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <SolidColorBrush x:Key="ColorMainGrid" Color="#bdd37d" Opacity="0.7"/>
+    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Gray"/>
+    <SolidColorBrush x:Key="ColorError" Color="#FFCCCC" Opacity="0.8"/>
+    <SolidColorBrush x:Key="BackgroundDataGridRowColor" Color="#ffffff" Opacity="0.5"/>
+
+    <BitmapImage UriSource="Images/heart-plain.png" x:Key="ImageHeart"/>
+    <BitmapImage UriSource="Images/broken-heart.png" x:Key="ImageBrokenHeart"/>
+    <BitmapImage UriSource="Images/magnifying-glass.png" x:Key="ImageSearch"/>
+    <BitmapImage UriSource="Images/item-add.png" x:Key="ImageAdd"/>
+    <BitmapImage UriSource="Images/paw.png" x:Key="ImagePaw"/>
+    <BitmapImage UriSource="Images/pawn.png" x:Key="ImageUser"/>
+
+    <Style TargetType="TextBox">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Height" Value="23"/>
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <DockPanel LastChildFill="true">
+                        <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
+                            <Border BorderBrush="red" BorderThickness="1" />
+                        </AdornedElementPlaceholder>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="70"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Margin" Value="5,0"/>
+    </Style>
+
+    <Style TargetType="RadioButton">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style TargetType="ComboBox">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Height" Value="23"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip"
+                        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                <Setter Property="Background" Value="{StaticResource ColorError}"/>
+            </Trigger>
+            <Trigger Property="IsVisible" Value="false">
+                <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DatePicker">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
+    <Style TargetType="ListBox">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="AlternationCount" Value="2"/>
+    </Style>
+
+    <Style TargetType="ListBoxItem">
+        <Style.Triggers>
+            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                <Setter Property="Background" Value="White"/>
+            </Trigger>
+            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                <Setter Property="Background" Value="#d3e9ff"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="DataGrid">
+        <Setter Property="ClipboardCopyMode" Value="ExcludeHeader"/>
+        <Setter Property="Background" Value="{StaticResource BackgroundDataGridRowColor}"/>
+        <Setter Property="AlternatingRowBackground" Value="Aqua"/>
+        <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+        <Setter Property="RowHeaderWidth" Value="0"/>
+        <Setter Property="AlternationCount" Value="2"></Setter>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="EnableRowVirtualization" Value="True"/>
+    </Style>
+    
+    <Style TargetType="DataGridRow">
+        <Setter Property="BorderThickness" Value="0.5"/>
+        <Style.Triggers>
+            <Trigger Property="AlternationIndex" Value="0">
+                <Setter Property="Background" Value="White" />
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="#d3e9ff" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="Ribbon">
+        <Setter Property="ShowQuickAccessToolBarOnTop" Value="False"/>
+    </Style>
+    
+    <Style TargetType="RibbonApplicationMenu">
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style>
+
+    <Style TargetType="CheckBox">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+</ResourceDictionary>

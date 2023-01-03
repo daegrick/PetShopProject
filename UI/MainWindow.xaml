@@ -1,0 +1,42 @@
+﻿<RibbonWindow x:Class="UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:UI.ViewModel"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="250" Width="450">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Ribbon>
+            <RibbonTab Header="Pessoa">
+                <RibbonGroup  Header="Pessoa">
+                    <RibbonButton Label="Novo" LargeImageSource="{StaticResource ImageUser}" Command="{Binding AbrirTelaPessoa, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"/>
+                    <RibbonButton Label="Busca" SmallImageSource="{StaticResource ImageSearch}" Command="{Binding AbrirTelaBuscaPessoa,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <RibbonButton Label="Adoção" SmallImageSource="{StaticResource ImageHeart}" Command="{Binding AbrirTelaAdocao,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="Pet">
+                <RibbonGroup Header="Pet">
+                    <RibbonButton Label="Novo" LargeImageSource="{StaticResource ImagePaw}" Command="{Binding AbrirTelaPet, Mode=OneTime,UpdateSourceTrigger=PropertyChanged}"/>
+                    <RibbonButton Label="Busca" SmallImageSource="{StaticResource ImageSearch}" Command="{Binding AbrirTelaBuscaPet, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+                </RibbonGroup>
+                <RibbonGroup Header="Raças" Width="100">
+                    <RibbonButton Label="Gerenciar" Command="{Binding AbrirTelaRaca, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" Height="30"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        <!--
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Nova Pessoa" Width="100" Command="{Binding AbrirTelaPessoa, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="Novo Pet" Width="100" Command="{Binding AbrirTelaPet, Mode=OneTime,UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="Raças" Width="100" Command="{Binding AbrirTelaRaca, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="Busca Pet" Width="100" Command="{Binding AbrirTelaBuscaPet, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="Busca Pessoa" Width="100" Command="{Binding AbrirTelaBuscaPessoa,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        -->
+    </Grid>
+</RibbonWindow>

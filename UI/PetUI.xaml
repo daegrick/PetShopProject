@@ -1,0 +1,48 @@
+﻿<RibbonWindow x:Class="UI.PetUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:UI.ViewModel"
+    xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="PetUI" Height="260" Width="450">
+    <Grid DataContext="{Binding PetViewModel,Mode=OneWay}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Ribbon Grid.ColumnSpan="4">
+            <RibbonTab Header="Funcoes">
+                <RibbonGroup Header="Funcoes">
+                    <RibbonButton LargeImageSource="{StaticResource ImagePaw}" Label="Salvar" Command="{Binding InserePetCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <RibbonButton SmallImageSource="{StaticResource ImageAdd}" Label="Novo"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Código:"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="Nome:"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Raça:"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="Sexo:"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Nascimento:"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="Vacinas:"/>
+
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Codigo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Nome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding RacaViewModel.Racas,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Raca,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True}" DisplayMemberPath="Nome"/>
+        <StackPanel Grid.Row="2" Grid.Column="3" Orientation="Horizontal">
+            <RadioButton Content="Macho" IsChecked="{Binding IsMacho, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <RadioButton Content="Femea" IsChecked="{Binding IsFemea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding DataNascimento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}"/>
+        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding QuantidadeVacinas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}"/>
+    </Grid>
+</RibbonWindow>

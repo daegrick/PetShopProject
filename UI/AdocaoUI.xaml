@@ -1,0 +1,62 @@
+﻿<RibbonWindow x:Class="UI.AdocaoUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+              xmlns:converter="clr-namespace:UI.Converters"
+              xmlns:viewmodel="clr-namespace:UI.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AdocaoViewModel}"
+              mc:Ignorable="d"
+        Title="AdocaoUI" Height="450" Width="800">
+    <RibbonWindow.Resources>
+        <converter:IdadeConverter x:Key="IdadeConverter"/>
+    </RibbonWindow.Resources>
+    <Grid DataContext="{Binding AdocaoViewModel, Mode=OneWay}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Ribbon Grid.ColumnSpan="2">
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu Visibility="Collapsed"/>
+            </Ribbon.ApplicationMenu>
+            <RibbonTab Header="Ações">
+                <RibbonGroup Header="Adoção">
+                    <RibbonButton Label="Salvar" LargeImageSource="{StaticResource ImageHeart}" Command="{Binding AdotarCommand, Mode=OneWay}"/>
+                    <RibbonButton Label="Devolver" SmallImageSource="{StaticResource ImageBrokenHeart}" Command="{Binding CancelarAdocaoCommand, Mode=OneWay}"/>
+                    <RibbonButton Label="Escolher Pet" SmallImageSource="{StaticResource ImagePaw}" Command="{Binding AdicionarPetCommand, Mode=OneWay}"/>
+                </RibbonGroup>
+            </RibbonTab>
+        </Ribbon>
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <TextBlock Text="Cadastro de Pessoas" FontSize="24"/>
+            <Separator Margin="5"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock Text="Cadastro de Pets" FontSize="24"/>
+            <Separator Margin="5"/>
+        </StackPanel>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <DataGrid Margin="5" ItemsSource="{Binding Pessoas,Mode=OneWay}" SelectedItem="{Binding SelectedPessoa}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nome" Width="2*" Binding="{Binding Nome, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Idade" Width="50" Binding="{Binding Nascimento,Mode=OneWay, Converter={StaticResource IdadeConverter}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <DataGrid Margin="5" ItemsSource="{Binding Pets, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPet}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nome" Width="2*" Binding="{Binding Nome,Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Idade" Width="50" Binding="{Binding DataNascimento, Mode=OneWay, Converter={StaticResource IdadeConverter}}"/>
+                    <DataGridTextColumn Header="Raça" Width="*" Binding="{Binding RacaIde,Mode=OneWay}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</RibbonWindow>
