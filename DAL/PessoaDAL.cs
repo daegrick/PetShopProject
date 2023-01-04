@@ -21,20 +21,22 @@ namespace DAL
                 return "Pessoa alterada com suceso!";
             }
             catch (SqlException ex)
-
             {
                return ExceptionManager.TrataException(ex);
             }
         }
 
-        public static IEnumerable<Pessoa> Busca()
+        public static IEnumerable<Pessoa> Busca(string nome)
         {
             List<Pessoa> pessoas = new();
-            string query = "SELECT * FROM Pessoa ORDER BY Codigo";
+            string query = "SELECT * FROM Pessoa WHERE (1 = 1 AND Nome LIKE @Nome) ORDER BY Codigo";
             try
             {
                 var conn = AcessoDB.DBAccess();
                 var command = new SqlCommand(query, conn);
+                string[] names = new string[] { "@Nome" };
+                object[] values = new object[] { $"%{nome}%" };
+                AcessoDB.FillParameters(command,names, values);
                 var reader = AcessoDB.Read(command);
                 while (reader.Read())
                 {

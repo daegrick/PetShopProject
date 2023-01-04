@@ -115,7 +115,7 @@ namespace UI.ViewModel
             petSearchUI.DataContext = this;
             Pessoas = new ObservableCollection<Pessoa>();
             Pets = new ObservableCollection<Pet>();
-            foreach (var pessoa in PessoaBLL.ListaPessoas())
+            foreach (var pessoa in PessoaBLL.ListaPessoas(string.Empty))
             {
                 Pessoas.Add(pessoa);
             }
