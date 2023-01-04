@@ -24,7 +24,7 @@
 
         public void AbrirTelaPet(object dataContext)
         {
-            new PetSearchUI() { DataContext= dataContext }.ShowDialog();
+            new PetUI() { DataContext= dataContext }.ShowDialog();
         }
 
         public void AbrirTelaRaca()

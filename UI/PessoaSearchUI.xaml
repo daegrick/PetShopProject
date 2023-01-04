@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converter="clr-namespace:UI.Converters"
-        xmlns:local="clr-namespace:UI"
-        mc:Ignorable="d"
+        xmlns:local="clr-namespace:UI" xmlns:viewmodel="clr-namespace:UI.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:BuscaPessoaViewModel}"
+              mc:Ignorable="d"
         Title="PessoaSearchUI" Height="450" Width="800">
     <RibbonWindow.Resources>
         <converter:IdadeConverter x:Key="IdadeConverter"/>
@@ -19,7 +19,8 @@
             <Ribbon Grid.Row="0" Grid.ColumnSpan="2">
                 <RibbonTab Header="Busca">
                     <RibbonGroup Header="Funções">
-                        <RibbonButton LargeImageSource="{StaticResource ImageSearch}" Label="Buscar"/>
+                        <RibbonButton LargeImageSource="{StaticResource ImageSearch}" Label="Buscar" Command="{Binding BuscaPessoaCommand, Mode=OneWay}"/>
+                        <RibbonButton SmallImageSource="{StaticResource ImageUser}" Label="Cadastro" Command="{Binding EditaPessoaCommand,Mode=OneWay}"/>
                     </RibbonGroup>
                 </RibbonTab>
             </Ribbon>
@@ -38,7 +39,8 @@
 
         </StackPanel>
         <DataGrid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" CanUserAddRows="False" Margin="5"
-                  ItemsSource="{Binding Pessoas, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                  ItemsSource="{Binding Pessoas, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedPessoa}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nome" Binding="{Binding Nome, Mode=OneWay}" Width="3*"/>
                 <DataGridTextColumn Header="Idade" Binding="{Binding Nascimento, Mode=OneWay,Converter={StaticResource IdadeConverter}}" Width="*"/>
