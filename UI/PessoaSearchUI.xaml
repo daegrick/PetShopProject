@@ -10,7 +10,7 @@
     <RibbonWindow.Resources>
         <converter:IdadeConverter x:Key="IdadeConverter"/>
     </RibbonWindow.Resources>
-    <Grid DataContext="{Binding BuscaPessoaViewModel,Mode=OneWay}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
