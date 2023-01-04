@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:UI.ViewModel"
-    xmlns:local="clr-namespace:UI"
-        mc:Ignorable="d"
+    xmlns:local="clr-namespace:UI" d:DataContext="{d:DesignInstance Type=vm:PetViewModel}"
+              mc:Ignorable="d"
         Title="PetUI" Height="260" Width="450">
     <Grid >
         <Grid.RowDefinitions>
@@ -35,7 +35,7 @@
         <TextBlock Grid.Row="3" Grid.Column="0" Text="Nascimento:"/>
         <TextBlock Grid.Row="3" Grid.Column="2" Text="Vacinas:"/>
 
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Codigo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" IsEnabled="False" Text="{Binding Codigo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Nome,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}"/>
         <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding RacaViewModel.Racas,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Raca,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True,ValidatesOnNotifyDataErrors=True}" DisplayMemberPath="Nome"/>
         <StackPanel Grid.Row="2" Grid.Column="3" Orientation="Horizontal">

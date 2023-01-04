@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using UI.Extras;
 
 namespace UI.ViewModel
@@ -24,7 +25,7 @@ namespace UI.ViewModel
         private bool isMacho;
         private bool isFemea;
         private List<string> errors;
-        private RacaViewModel racaViewModel; 
+        private RacaViewModel racaViewModel;
         private Raca raca;
 
         public Raca Raca
@@ -168,15 +169,47 @@ namespace UI.ViewModel
                 CodigoRaca = Raca.Codigo,
                 Ativo = Ativo
             };
-          MessageBox.Show(PetBLL.Inserir(pet));
+            MessageBox.Show(PetBLL.Inserir(pet));
         }
         #endregion
 
         public PetViewModel()
         {
-            errors  = new List<string>();
+            errors = new List<string>();
             RacaViewModel = new RacaViewModel();
             isMacho = true;
+        }
+
+        public void LoadPet(Pet pet)
+        {
+            Codigo = pet.Codigo;
+            Nome = pet.Nome;
+            EscolheSexo(pet.Sexo);
+            DataNascimento = pet.DataNascimento;
+            QuantidadeVacinas = pet.QuantidadeVacinas;
+            Ide = pet.Ide;
+            EscolheRaca(pet.RacaIde);
+        }
+        private void EscolheSexo(string sexo)
+        {
+            if (sexo == "M")
+            {
+                IsMacho = true;
+            }
+            else 
+            { 
+                IsFemea = true; 
+            }
+        }
+        private void EscolheRaca(Guid racaIde)
+        {
+            foreach (var raca in RacaViewModel.Racas)
+            {
+                if (raca.Ide != racaIde)
+                    continue;
+                Raca = raca;
+                break;
+            }
         }
     }
 }

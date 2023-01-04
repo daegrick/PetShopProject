@@ -14,7 +14,7 @@ namespace DAL
                 using var conn = AcessoDB.DBAccess();
                 using var command = new SqlCommand(query, conn);
                 string[] names = new string[] { "@Nome", "@Sexo", "@DataNascimento", "@Ide" };
-                object[] values = new object[] { pessoa.Nome, pessoa.Sexo, pessoa.Nascimento, Guid.NewGuid() };
+                object[] values = new object[] { pessoa.Nome, pessoa.Sexo, pessoa.Nascimento, pessoa.Ide };
                 AcessoDB.FillParameters(command, names, values);
                 AcessoDB.ExecuteCommand(command);
                 AcessoDB.CloseConnection();

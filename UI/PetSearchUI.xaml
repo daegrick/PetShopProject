@@ -23,6 +23,7 @@
                     <RibbonGroup Header="Funcoes">
                         <RibbonButton LargeImageSource="{StaticResource ImageSearch}" Label="Pesquisar"/>
                         <RibbonButton SmallImageSource="{StaticResource ImagePaw}" Label="Adicionar" IsEnabled="False"/>
+                        <RibbonButton SmallImageSource="{StaticResource ImagePaw}" Label="Editar" Command="{Binding EditaPetCommand,Mode=OneWay}"/>
                     </RibbonGroup>
                 </RibbonTab>
             </Ribbon>
@@ -52,7 +53,7 @@
                 <DataGridTextColumn Header="Raca" Width="2*">
                     <DataGridTextColumn.Binding>
                         <MultiBinding Converter="{StaticResource dictionaryConverter}">
-                            <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.BuscaPetViewModel.RacaDictionary" Mode="OneWay" />
+                            <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.RacaDictionary" Mode="OneWay" />
                             <Binding Path="RacaIde" Mode="OneWay"/>
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
