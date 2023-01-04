@@ -10,6 +10,7 @@
         Title="AdocaoUI" Height="450" Width="800">
     <RibbonWindow.Resources>
         <converter:IdadeConverter x:Key="IdadeConverter"/>
+        <converter:DictionaryConverter x:Key="DictionaryConverter"/>
     </RibbonWindow.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -54,7 +55,14 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nome" Width="2*" Binding="{Binding Nome,Mode=OneWay}"/>
                     <DataGridTextColumn Header="Idade" Width="50" Binding="{Binding DataNascimento, Mode=OneWay, Converter={StaticResource IdadeConverter}}"/>
-                    <DataGridTextColumn Header="Raça" Width="*" Binding="{Binding RacaIde,Mode=OneWay}"/>
+                    <DataGridTextColumn Header="Raça" Width="*">
+                        <DataGridTextColumn.Binding>
+                            <MultiBinding Converter="{StaticResource DictionaryConverter}">
+                                <Binding RelativeSource="{RelativeSource AncestorType=RibbonWindow,Mode=FindAncestor}" Path="DataContext.RacaDictionary" Mode="OneWay"/>
+                                <Binding Path="RacaIde" Mode="OneWay"/>
+                            </MultiBinding>
+                        </DataGridTextColumn.Binding>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
