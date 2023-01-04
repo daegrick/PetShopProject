@@ -1,5 +1,7 @@
 ﻿using BLL.Controle;
 using DTO;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -14,15 +16,21 @@ namespace UI.ViewModel
         private ObservableCollection<Pet> pets;
         private Pessoa selectedPessoa;
         private Pet selectedPet;
-        private bool isDataGridPessoaLocked; 
+        private bool isDataGridPessoaLocked;
         private BuscaPetViewModel buscaPetViewModel;
+        private Dictionary<Guid,string> racaDictionary;
+
+        public Dictionary<Guid,string> RacaDictionary
+        {
+            get => racaDictionary;
+            set => OnPropertyChanged(ref racaDictionary, value, nameof(RacaDictionary));
+        }
 
         public BuscaPetViewModel BuscaPetViewModel
         {
             get => buscaPetViewModel;
             set => OnPropertyChanged(ref buscaPetViewModel, value, nameof(BuscaPetViewModel));
         }
-
 
         public bool IsDataGridPessoaLocked
         {
@@ -119,6 +127,7 @@ namespace UI.ViewModel
             {
                 Pessoas.Add(pessoa);
             }
+            RacaDictionary = RacaBLL.BuscaDictionary();
         }
     }
 }
