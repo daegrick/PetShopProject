@@ -49,9 +49,9 @@ namespace BLL.Controle
             }
         }
 
-        public static IEnumerable<Pessoa> ListaPessoas()
+        public static IEnumerable<Pessoa> ListaPessoas(string nome)
         {
-            return PessoaDAL.Busca();
+            return PessoaDAL.Busca(nome);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace UI.ViewModel
         public void BuscaPessoa(object o = null)
         {
             Pessoas.Clear();
-            foreach (var pessoa in PessoaBLL.ListaPessoas())
+            foreach (var pessoa in PessoaBLL.ListaPessoas(PesquisaNome))
             {
                 Pessoas.Add(pessoa);
             }
