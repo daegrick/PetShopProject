@@ -2,7 +2,7 @@
 using DTO;
 using System;
 using System.Collections.ObjectModel;
-using System.DirectoryServices;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -75,9 +75,18 @@ namespace UI.ViewModel
 
         private ICommand insereRacaCommand;
         private ICommand buscaRacaCommand;
+        private ICommand novaRacaCommand;
+        public ICommand NovaRacaCommand => novaRacaCommand ?? (novaRacaCommand = new RelayCommand(NovaRaca, canExecute => true));
+        
 
         public ICommand BuscaRacaCommand => buscaRacaCommand ?? (buscaRacaCommand = new RelayCommand(BuscaRaca, canExecute => true));
         public ICommand InsereRacaCommand => insereRacaCommand ?? (insereRacaCommand = new RelayCommand(InsereRaca, canExecute => true));
+
+        public void NovaRaca(object o)
+        {
+            Racas.Add(new Raca());
+            SelectedRaca = Racas.Last();
+        }
         public void BuscaRaca(object o)
         {
             Racas.Clear();
@@ -95,11 +104,13 @@ namespace UI.ViewModel
                 Ide = SelectedRacaIde
             };
             MessageBox.Show(RacaBLL.Insere(raca));
+            RaisePropertyChange(nameof(Racas));
         }
 
         public RacaViewModel()
         {
             Racas = new ObservableCollection<Raca>();
+            
             SelectedRaca = null;
             BuscaRaca(null);
         }
