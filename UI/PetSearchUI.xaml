@@ -12,7 +12,7 @@
         <converter:IdadeConverter x:Key="IdadePetConverter"/>
         <converter:DictionaryConverter x:Key="dictionaryConverter"/>
     </RibbonWindow.Resources>
-    <Grid DataContext="{Binding BuscaPetViewModel,Mode=OneWay}">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

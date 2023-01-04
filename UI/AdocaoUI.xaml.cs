@@ -7,17 +7,9 @@ namespace UI
     /// Interaction logic for AdocaoUI.xaml
     /// </summary>
     public partial class AdocaoUI : RibbonWindow
-    {
-        public AdocaoUI()
+    {        public AdocaoUI()
         {
             InitializeComponent();
         }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;  // cancels the window close    
-            this.Hide();      // Programmatically hides the window
-        }
-
     }
 }

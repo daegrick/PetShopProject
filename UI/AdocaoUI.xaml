@@ -11,7 +11,7 @@
     <RibbonWindow.Resources>
         <converter:IdadeConverter x:Key="IdadeConverter"/>
     </RibbonWindow.Resources>
-    <Grid DataContext="{Binding AdocaoViewModel, Mode=OneWay}">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
