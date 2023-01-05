@@ -24,7 +24,7 @@
             <RibbonTab Header="Funcoes">
                 <RibbonGroup Header="Funcoes">
                     <RibbonButton LargeImageSource="{StaticResource ImagePaw}" Label="Salvar" Command="{Binding InserePetCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <RibbonButton SmallImageSource="{StaticResource ImageAdd}" Label="Novo"/>
+                    <RibbonButton SmallImageSource="{StaticResource ImageAdd}" Label="Novo" Command="{Binding NovoPetCommand, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

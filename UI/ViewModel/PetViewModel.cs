@@ -107,6 +107,9 @@ namespace UI.ViewModel
 
         #region Commands
         private ICommand inserePetCommand;
+        private ICommand novoPetCommand;
+
+        public ICommand NovoPetCommand => novoPetCommand ??= new RelayCommand(NovoPet, canExecute=>true);
 
         public ICommand InserePetCommand => inserePetCommand ?? (inserePetCommand = new RelayCommand(InserePet, canExecute => canInserirPet));
 
@@ -155,6 +158,11 @@ namespace UI.ViewModel
         #endregion
 
         #region Methods
+
+        public void NovoPet(object o)
+        {
+            LoadPet(new Pet() { Sexo = "M" });
+        }
         public void InserePet(object o)
         {
             Pet pet = new()
