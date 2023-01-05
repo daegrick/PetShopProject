@@ -19,10 +19,11 @@ namespace UI.ViewModel
         private string pesquisaNome;
         private Pet selectedPet;
         private Action<Pet> selectedAction;
-        private Dictionary<Guid, string> racaDictionary; 
+        private Dictionary<Guid, string> racaDictionary;
         private bool? isAdotado;
         private readonly WindowService WindowService;
         public PetViewModel PetViewModel { get; private set; }
+        public bool CanInserirPet => (SelectedPet != null && selectedAction != null);
 
         public bool? IsAdotado
         {
@@ -31,7 +32,7 @@ namespace UI.ViewModel
         }
 
 
-        public Dictionary<Guid,string> RacaDictionary
+        public Dictionary<Guid, string> RacaDictionary
         {
             get => racaDictionary;
             set => OnPropertyChanged(ref racaDictionary, value, nameof(RacaDictionary));
@@ -65,7 +66,7 @@ namespace UI.ViewModel
         public void BuscaPet(object o)
         {
             Pets.Clear();
-            foreach(var pet in PetBLL.Buscar(PesquisaNome, IsAdotado))
+            foreach (var pet in PetBLL.Buscar(PesquisaNome, IsAdotado))
             {
                 Pets.Add(pet);
             }
@@ -80,23 +81,27 @@ namespace UI.ViewModel
         private ICommand buscaPetCommand;
         private ICommand editaPetCommand;
         public ICommand BuscaPetCommand => buscaPetCommand ?? new RelayCommand(BuscaPet);
-        public ICommand InserePetCommand => inserePetCommand ?? new RelayCommand(EscolhePet, canExecute => SelectedPet != null);
+        public ICommand InserePetCommand => inserePetCommand ?? new RelayCommand(EscolhePet, canExecute => CanInserirPet);
         public ICommand EditaPetCommand => editaPetCommand ?? (editaPetCommand = new RelayCommand(EditaPet, canExecute => SelectedPet != null));
         public void EditaPet(object o)
-	{
+        {
             PetViewModel ??= new PetViewModel();
             PetViewModel.LoadPet(SelectedPet);
             WindowService.AbrirTelaPet(PetViewModel);
-	}
+        }
 
-    #endregion
+        #endregion
 
-    public BuscaPetViewModel()
+        public BuscaPetViewModel()
         {
             RacaDictionary = RacaBLL.BuscaDictionary();
             Pets = new ObservableCollection<Pet>();
-            pesquisaNome= string.Empty;
+            pesquisaNome = string.Empty;
             WindowService = new WindowService();
+        }
+        public BuscaPetViewModel(Action<Pet> inserePetAction) : this()
+        {
+            selectedAction = inserePetAction;
         }
     }
 }

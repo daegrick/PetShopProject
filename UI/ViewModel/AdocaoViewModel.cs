@@ -5,31 +5,26 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using UI.Services;
 
 namespace UI.ViewModel
 {
     public class AdocaoViewModel : ViewModelBase
     {
         #region Setters
-        private PetSearchUI petSearchUI;
         private ObservableCollection<Pessoa> pessoas;
         private ObservableCollection<Pet> pets;
         private Pessoa selectedPessoa;
         private Pet selectedPet;
         private bool isDataGridPessoaLocked;
-        private BuscaPetViewModel buscaPetViewModel;
         private Dictionary<Guid,string> racaDictionary;
+        private readonly WindowService windowService;
+        private BuscaPetViewModel buscaPetViewModel;
 
         public Dictionary<Guid,string> RacaDictionary
         {
             get => racaDictionary;
             set => OnPropertyChanged(ref racaDictionary, value, nameof(RacaDictionary));
-        }
-
-        public BuscaPetViewModel BuscaPetViewModel
-        {
-            get => buscaPetViewModel;
-            set => OnPropertyChanged(ref buscaPetViewModel, value, nameof(BuscaPetViewModel));
         }
 
         public bool IsDataGridPessoaLocked
@@ -79,7 +74,8 @@ namespace UI.ViewModel
         #region Methods
         public void AdicionaPet(object o)
         {
-            petSearchUI.ShowDialog();
+            buscaPetViewModel ??= new BuscaPetViewModel(InserePet);
+            windowService.AbrirTelaBuscaPet(buscaPetViewModel);
             IsDataGridPessoaLocked = false;
         }
 
@@ -117,12 +113,9 @@ namespace UI.ViewModel
 
         public AdocaoViewModel()
         {
-            petSearchUI = new PetSearchUI();
-            BuscaPetViewModel = new();
-            BuscaPetViewModel.Load(InserePet);
-            petSearchUI.DataContext = this;
             Pessoas = new ObservableCollection<Pessoa>();
             Pets = new ObservableCollection<Pet>();
+            windowService = new WindowService();
             foreach (var pessoa in PessoaBLL.ListaPessoas(string.Empty))
             {
                 Pessoas.Add(pessoa);
