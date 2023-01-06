@@ -45,7 +45,7 @@
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Código:"/>
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Nome:"/>
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedRacaCodigo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedRacaNome,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedRacaNome,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" IsEnabled="{Binding CanEditar}"/>
         </Grid>
     </Grid>
 </RibbonWindow>
