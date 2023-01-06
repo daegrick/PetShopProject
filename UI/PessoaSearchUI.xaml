@@ -6,7 +6,7 @@
         xmlns:converter="clr-namespace:UI.Converters"
         xmlns:local="clr-namespace:UI" xmlns:viewmodel="clr-namespace:UI.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:BuscaPessoaViewModel}"
               mc:Ignorable="d"
-        Title="PessoaSearchUI" Height="450" Width="400">
+        Title="Pet Shop do Desafeto" Icon="{StaticResource ImageDog}"  Height="450" Width="400">
     <RibbonWindow.Resources>
         <converter:IdadeConverter x:Key="IdadeConverter"/>
     </RibbonWindow.Resources>

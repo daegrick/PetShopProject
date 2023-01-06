@@ -5,15 +5,22 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>petshopdesafeto.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\broken-heart.png" />
+    <None Remove="Images\bheart.png" />
+    <None Remove="Images\dog.png" />
     <None Remove="Images\heart-plain.png" />
-    <None Remove="Images\item-add.png" />
-    <None Remove="Images\magnifying-glass.png" />
+    <None Remove="Images\heart.png" />
     <None Remove="Images\paw.png" />
-    <None Remove="Images\pawn.png" />
+    <None Remove="Images\plus.png" />
+    <None Remove="Images\search.png" />
+    <None Remove="Images\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="petshopdesafeto.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,19 +29,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\broken-heart.png">
+    <Resource Include="Images\bheart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\item-add.png">
+    <Resource Include="Images\dog.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\magnifying-glass.png">
+    <Resource Include="Images\heart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\paw.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\pawn.png">
+    <Resource Include="Images\plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\search.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -6,12 +6,13 @@
     <SolidColorBrush x:Key="ColorError" Color="#FFCCCC" Opacity="0.8"/>
     <SolidColorBrush x:Key="BackgroundDataGridRowColor" Color="#ffffff" Opacity="0.5"/>
 
-    <BitmapImage UriSource="Images/heart-plain.png" x:Key="ImageHeart"/>
-    <BitmapImage UriSource="Images/broken-heart.png" x:Key="ImageBrokenHeart"/>
-    <BitmapImage UriSource="Images/magnifying-glass.png" x:Key="ImageSearch"/>
-    <BitmapImage UriSource="Images/item-add.png" x:Key="ImageAdd"/>
+    <BitmapImage UriSource="Images/heart.png" x:Key="ImageHeart"/>
+    <BitmapImage UriSource="Images/bheart.png" x:Key="ImageBrokenHeart"/>
+    <BitmapImage UriSource="Images/search.png" x:Key="ImageSearch"/>
+    <BitmapImage UriSource="Images/plus.png" x:Key="ImageAdd"/>
     <BitmapImage UriSource="Images/paw.png" x:Key="ImagePaw"/>
-    <BitmapImage UriSource="Images/pawn.png" x:Key="ImageUser"/>
+    <BitmapImage UriSource="Images/user.png" x:Key="ImageUser"/>
+    <BitmapImage UriSource="Images/dog.png" x:Key="ImageDog"/>
 
     <Style TargetType="TextBox">
         <Setter Property="Margin" Value="5"/>

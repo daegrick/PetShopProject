@@ -6,7 +6,7 @@
         xmlns:viewModel="clr-namespace:UI.ViewModel"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="RacaUI" Height="450" Width="350">
+        Title="Pet Shop do Desafeto" Icon="{StaticResource ImageDog}" Height="450" Width="350">
     <RibbonWindow.DataContext>
         <viewModel:RacaViewModel/>
     </RibbonWindow.DataContext>
@@ -20,7 +20,7 @@
         <Ribbon>
             <RibbonTab Header="Funcoes">
                 <RibbonGroup Header="Gerenciar">
-                    <RibbonButton LargeImageSource="{StaticResource ImageAdd}" Label="Salvar" Command="{Binding InsereRacaCommand, Mode=OneWay}"/>
+                    <RibbonButton LargeImageSource="{StaticResource ImageDog}" Label="Salvar" Command="{Binding InsereRacaCommand, Mode=OneWay}"/>
                     <RibbonButton SmallImageSource="{StaticResource ImageAdd}" Label="Novo" Command="{Binding NovaRacaCommand,Mode=OneWay}"/>
                 </RibbonGroup>
             </RibbonTab>

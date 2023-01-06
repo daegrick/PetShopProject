@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:UI.ViewModel"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="PessoaUI" Height="290" MaxHeight="290" MinHeight="290" MinWidth="330" MaxWidth="500">
+        Title="Pet Shop do Desafeto" Icon="{StaticResource ImageDog}"  Height="290" MaxHeight="290" MinHeight="290" MinWidth="330" MaxWidth="500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:UI.ViewModel"
     xmlns:local="clr-namespace:UI" d:DataContext="{d:DesignInstance Type=vm:PetViewModel}"
               mc:Ignorable="d"
-        Title="PetUI" Height="260" Width="450">
+        Title="Pet Shop do Desafeto" Icon="{StaticResource ImageDog}"  Height="260" Width="450">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
