@@ -20,7 +20,7 @@
         <Ribbon>
             <RibbonTab Header="Funcoes">
                 <RibbonGroup Header="Gerenciar">
-                    <RibbonButton LargeImageSource="{StaticResource ImageAdd}" Label="Salvar" Command="{Binding InsereRacaCommand, Mode=OneWay}"/>
+                    <RibbonButton LargeImageSource="{StaticResource ImageDog}" Label="Salvar" Command="{Binding InsereRacaCommand, Mode=OneWay}"/>
                     <RibbonButton SmallImageSource="{StaticResource ImageAdd}" Label="Novo" Command="{Binding NovaRacaCommand,Mode=OneWay}"/>
                 </RibbonGroup>
             </RibbonTab>

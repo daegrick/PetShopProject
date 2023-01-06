@@ -25,7 +25,7 @@
                     <RibbonButton Label="Busca" SmallImageSource="{StaticResource ImageSearch}" Command="{Binding AbrirTelaBuscaPet, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"/>
                 </RibbonGroup>
                 <RibbonGroup Header="Raças" Width="100">
-                    <RibbonButton Label="Gerenciar" Command="{Binding AbrirTelaRaca, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" Height="30"/>
+                    <RibbonButton Label="Gerenciar" SmallImageSource="{StaticResource ImageDog}" Command="{Binding AbrirTelaRaca, Mode=OneTime, UpdateSourceTrigger=PropertyChanged}" Height="30"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
