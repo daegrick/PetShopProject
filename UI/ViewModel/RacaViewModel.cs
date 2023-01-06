@@ -1,14 +1,18 @@
 ﻿using BLL.Controle;
 using DTO;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
+using UI.Extras;
 
 namespace UI.ViewModel
 {
-    public class RacaViewModel : ViewModelBase
+    public class RacaViewModel : ViewModelBase, IDataErrorInfo
     {
         #region Setters
         private ObservableCollection<Raca> racas;
@@ -16,6 +20,7 @@ namespace UI.ViewModel
         private Guid selectedRacaIde;
         private int selectedRacaCodigo;
         private string? selectedRacaNome;
+        private readonly List<string> errors;
         public string SelectedRacaNome
         {
             get => selectedRacaNome ?? string.Empty;
@@ -46,6 +51,7 @@ namespace UI.ViewModel
                     selectedRaca = value;
                     SetSelectedRacaValues(value);
                     RaisePropertyChange(nameof(SelectedRaca));
+                    RaisePropertyChange(nameof(CanEditar));
                 }
             }
         }
@@ -57,6 +63,7 @@ namespace UI.ViewModel
         }
         #endregion
 
+        #region Commands
         private void SetSelectedRacaValues(Raca selectedRaca)
         {
             if (selectedRaca is null)
@@ -77,11 +84,40 @@ namespace UI.ViewModel
         private ICommand buscaRacaCommand;
         private ICommand novaRacaCommand;
         public ICommand NovaRacaCommand => novaRacaCommand ?? (novaRacaCommand = new RelayCommand(NovaRaca, canExecute => true));
-        
+
 
         public ICommand BuscaRacaCommand => buscaRacaCommand ?? (buscaRacaCommand = new RelayCommand(BuscaRaca, canExecute => true));
-        public ICommand InsereRacaCommand => insereRacaCommand ?? (insereRacaCommand = new RelayCommand(InsereRaca, canExecute => true));
+        public ICommand InsereRacaCommand => insereRacaCommand ?? (insereRacaCommand = new RelayCommand(InsereRaca, canExecute => CanInserirRaca));
+        #endregion
 
+        #region Validation
+        public bool CanEditar => SelectedRaca != null;
+        public bool CanInserirRaca
+        {
+            get {
+                errors.Clear();
+                errors.UniqueIfNotEmpty(this[nameof(SelectedRacaNome)]);
+                return errors.Count == 0;
+            }
+        }
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get {
+                switch (columnName)
+                {
+                    case (nameof(SelectedRacaNome)):
+                        if (!Regex.IsMatch(SelectedRacaNome, @"^[\p{L}\p{M}' \.\-]+$"))
+                            return "Entre com um nome válido!";
+                        break;
+                }
+                return string.Empty;
+            }
+        }
+        #endregion
+
+        #region Methods
         public void NovaRaca(object o)
         {
             Racas.Add(new Raca());
@@ -107,10 +143,13 @@ namespace UI.ViewModel
             RaisePropertyChange(nameof(Racas));
         }
 
+        #endregion
+
+
         public RacaViewModel()
         {
             Racas = new ObservableCollection<Raca>();
-            
+            errors = new();
             SelectedRaca = null;
             BuscaRaca(null);
         }
