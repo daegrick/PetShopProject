@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:UI.ViewModel"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="250" Width="450">
+        Title="Pet Shop do Desafeto" Icon="{StaticResource ImageDog}"  Height="250" Width="450">
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
