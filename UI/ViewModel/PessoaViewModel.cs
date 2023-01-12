@@ -2,12 +2,7 @@
 using DTO;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using UI.Extras;
@@ -16,85 +11,77 @@ namespace UI.ViewModel
 {
     public class PessoaViewModel : ViewModelBase, IDataErrorInfo
     {
-        private int codigo;
-        private string nome;
-        private string sexo;
-        private DateTime nascimento;
-        private Guid ide;
-        private bool ativo;
-        private bool isMasculino;
-        private bool isFeminino;
-        private bool isOutro;
-        private List<string> errors = new();
-
-
-
-        #region Actions
-        private Action CloseWindow;
-        #endregion
-
         #region Setters
-
-
+        private int _codigo;
+        private string _nome;
+        private string _sexo;
+        private DateTime _nascimento;
+        private Guid _ide;
+        private bool _ativo;
+        private bool _isMasculino;
+        private bool _isFeminino;
+        private bool _isOutro;
+        private readonly List<string> _errors;
+     
         public int Codigo
         {
-            get => codigo;
-            set => OnPropertyChanged(ref codigo, value, nameof(Codigo));
+            get => _codigo;
+            set => OnPropertyChanged(ref _codigo, value, nameof(Codigo));
         }
         public string Nome
         {
-            get => nome;
-            set => OnPropertyChanged(ref nome, value, nameof(Nome));
+            get => _nome;
+            set => OnPropertyChanged(ref _nome, value, nameof(Nome));
         }
         public string Sexo
         {
-            get => sexo;
-            set => OnPropertyChanged(ref sexo, value, nameof(Sexo));
+            get => _sexo;
+            set => OnPropertyChanged(ref _sexo, value, nameof(Sexo));
         }
         public DateTime Nascimento
         {
-            get => nascimento;
-            set => OnPropertyChanged(ref nascimento, value, nameof(Nascimento));
+            get => _nascimento;
+            set => OnPropertyChanged(ref _nascimento, value, nameof(Nascimento));
         }
         public Guid Ide
         {
-            get => ide;
-            set => OnPropertyChanged(ref ide, value, nameof(Ide));
+            get => _ide;
+            set => OnPropertyChanged(ref _ide, value, nameof(Ide));
         }
         public bool Ativo
         {
-            get => ativo;
-            set => OnPropertyChanged(ref ativo, value, nameof(Ativo));
+            get => _ativo;
+            set => OnPropertyChanged(ref _ativo, value, nameof(Ativo));
         }
         public bool IsMasculino
         {
-            get => isMasculino;
+            get => _isMasculino;
             set {
-                if(isMasculino != value)
-                    isMasculino = value;
-                if (isMasculino)
+                if(_isMasculino != value)
+                    _isMasculino = value;
+                if (_isMasculino)
                     Sexo = "M";
                 RaisePropertyChange(nameof(IsMasculino));
             }
         }
         public bool IsFeminino
         {
-            get => isFeminino;
+            get => _isFeminino;
             set {
-                if (isFeminino != value)
-                    isFeminino= value;
-                if (isFeminino)
+                if (_isFeminino != value)
+                    _isFeminino= value;
+                if (_isFeminino)
                     Sexo = "F";
                 RaisePropertyChange(nameof(IsFeminino));
             }
         }
         public bool IsOutro
         {
-            get => isOutro;
+            get => _isOutro;
             set {
-                if (isOutro!= value)
-                    isOutro= value;
-                if (isOutro)
+                if (_isOutro!= value)
+                    _isOutro= value;
+                if (_isOutro)
                     Sexo = "O";
                 RaisePropertyChange(nameof(IsOutro));
             }
@@ -102,12 +89,11 @@ namespace UI.ViewModel
         #endregion
 
         #region Commands
-        private ICommand inserePessoaCommand;
-        private ICommand novaPessoaCommand;
-        public ICommand InserePessoaCommand => inserePessoaCommand ?? (new RelayCommand(InserePessoa, canExecute => CanInserirPessoa));
-        
+        private ICommand _inserePessoaCommand;
+        private ICommand _novaPessoaCommand;
 
-        public ICommand NovaPessoaCommand => novaPessoaCommand ?? (new RelayCommand(NovaPessoa));
+        public ICommand InserePessoaCommand => _inserePessoaCommand ??= new RelayCommand(InserePessoa, canExecute => CanInserirPessoa);
+        public ICommand NovaPessoaCommand => _novaPessoaCommand ??= new RelayCommand(NovaPessoa);
         #endregion
 
         #region Methods
@@ -133,9 +119,6 @@ namespace UI.ViewModel
             };
             MessageBox.Show(PessoaBLL.Incluir(pessoa));
         }
-
-
-
         public void LoadPessoa(Pessoa pessoa)
         {
             Codigo = pessoa.Codigo;
@@ -149,7 +132,7 @@ namespace UI.ViewModel
                     IsFeminino = true;
                     break;
                 case "O":
-                    isOutro = true;
+                    _isOutro = true;
                     break;
             }
             Nascimento = pessoa.Nascimento;
@@ -163,14 +146,13 @@ namespace UI.ViewModel
         {
             get
             {
-                errors.Clear();
-                errors.UniqueIfNotEmpty(this[nameof(Sexo)]);
-                errors.UniqueIfNotEmpty(this[nameof(Nascimento)]);
-                errors.UniqueIfNotEmpty(this[nameof(Nome)]);
-                return errors.Count == 0;
+                _errors.Clear();
+                _errors.UniqueIfNotEmpty(this[nameof(Sexo)]);
+                _errors.UniqueIfNotEmpty(this[nameof(Nascimento)]);
+                _errors.UniqueIfNotEmpty(this[nameof(Nome)]);
+                return _errors.Count == 0;
             }
         }
-
         public string this[string columnName]
         {
             get
@@ -193,9 +175,10 @@ namespace UI.ViewModel
         public string Error => throw new NotImplementedException();
         #endregion
 
-        #region constructor
+        #region Constructor
         public PessoaViewModel()
         {
+            _errors = new();
         }
         #endregion
     }
