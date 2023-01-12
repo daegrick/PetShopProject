@@ -3,10 +3,6 @@ using DTO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using UI.Services;
 
@@ -15,53 +11,67 @@ namespace UI.ViewModel
     public class BuscaPetViewModel : ViewModelBase
     {
         #region Setters
-        private ObservableCollection<Pet> pets;
-        private string pesquisaNome;
-        private Pet selectedPet;
-        private Action<Pet> selectedAction;
-        private Dictionary<Guid, string> racaDictionary;
-        private bool? isAdotado;
-        private readonly WindowService WindowService;
-        public PetViewModel PetViewModel { get; private set; }
-        public bool CanInserirPet => (SelectedPet != null && selectedAction != null);
+        private ObservableCollection<Pet> _pets;
+        private string _pesquisaNome;
+        private Pet _selectedPet;
+        private Action<Pet> _selectedAction;
+        private Dictionary<Guid, string> _racaDictionary;
+        private bool? _isAdotado;
+        private readonly WindowService _windowService;
 
+        public PetViewModel PetViewModel { get; private set; }
+        public bool CanInserirPet => (SelectedPet != null && _selectedAction != null);
         public bool? IsAdotado
         {
-            get => isAdotado;
-            set => OnPropertyChanged(ref isAdotado, value, nameof(IsAdotado));
+            get => _isAdotado;
+            set => OnPropertyChanged(ref _isAdotado, value, nameof(IsAdotado));
         }
-
-
         public Dictionary<Guid, string> RacaDictionary
         {
-            get => racaDictionary;
-            set => OnPropertyChanged(ref racaDictionary, value, nameof(RacaDictionary));
+            get => _racaDictionary;
+            set => OnPropertyChanged(ref _racaDictionary, value, nameof(RacaDictionary));
         }
-
-
         public Pet SelectedPet
         {
-            get => selectedPet;
-            set => OnPropertyChanged(ref selectedPet, value, nameof(SelectedPet));
+            get => _selectedPet;
+            set => OnPropertyChanged(ref _selectedPet, value, nameof(SelectedPet));
         }
-
         public ObservableCollection<Pet> Pets
         {
-            get => pets;
-            set => OnPropertyChanged(ref pets, value, nameof(Pets));
+            get => _pets;
+            set => OnPropertyChanged(ref _pets, value, nameof(Pets));
         }
-
         public string PesquisaNome
         {
-            get => pesquisaNome;
-            set => OnPropertyChanged(ref pesquisaNome, value, nameof(PesquisaNome));
+            get => _pesquisaNome;
+            set => OnPropertyChanged(ref _pesquisaNome, value, nameof(PesquisaNome));
         }
 
         #endregion
 
+        #region Commands
+        private ICommand _inserePetCommand;
+        private ICommand _buscaPetCommand;
+        private ICommand _editaPetCommand;
+
+        public ICommand BuscaPetCommand => _buscaPetCommand ??= new RelayCommand(BuscaPet);
+        public ICommand InserePetCommand => _inserePetCommand ??= new RelayCommand(EscolhePet, canExecute => CanInserirPet);
+        public ICommand EditaPetCommand => _editaPetCommand ??= new RelayCommand(EditaPet, canExecute => SelectedPet != null);
+
+
+
+        #endregion
+
+        #region Methods
+        public void EditaPet(object o)
+        {
+            PetViewModel ??= new PetViewModel();
+            PetViewModel.LoadPet(SelectedPet);
+            _windowService.AbrirTelaPet(PetViewModel);
+        }
         public void EscolhePet(object o)
         {
-            selectedAction(SelectedPet);
+            _selectedAction(SelectedPet);
         }
         public void BuscaPet(object o)
         {
@@ -72,36 +82,21 @@ namespace UI.ViewModel
             }
         }
 
-        internal void Load(Action<Pet> inserePetDaBusca)
-        {
-            selectedAction = inserePetDaBusca;
-        }
-        #region Commands
-        private ICommand inserePetCommand;
-        private ICommand buscaPetCommand;
-        private ICommand editaPetCommand;
-        public ICommand BuscaPetCommand => buscaPetCommand ?? new RelayCommand(BuscaPet);
-        public ICommand InserePetCommand => inserePetCommand ?? new RelayCommand(EscolhePet, canExecute => CanInserirPet);
-        public ICommand EditaPetCommand => editaPetCommand ?? (editaPetCommand = new RelayCommand(EditaPet, canExecute => SelectedPet != null));
-        public void EditaPet(object o)
-        {
-            PetViewModel ??= new PetViewModel();
-            PetViewModel.LoadPet(SelectedPet);
-            WindowService.AbrirTelaPet(PetViewModel);
-        }
-
         #endregion
 
+        #region Constructor
         public BuscaPetViewModel()
         {
             RacaDictionary = RacaBLL.BuscaDictionary();
             Pets = new ObservableCollection<Pet>();
-            pesquisaNome = string.Empty;
-            WindowService = new WindowService();
+            _pesquisaNome = string.Empty;
+            _windowService = new WindowService();
         }
         public BuscaPetViewModel(Action<Pet> inserePetAction) : this()
         {
-            selectedAction = inserePetAction;
+            _selectedAction = inserePetAction;
         }
+        #endregion
+
     }
 }

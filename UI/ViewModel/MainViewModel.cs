@@ -1,12 +1,8 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using UI.Services;
 
 namespace UI.ViewModel
 {
-    /*
-     * TODO: Não recomendado incluir membros de UI nos viewModels; verificar outra forma de navegar por essas telas
-     */
     public class MainViewModel : ViewModelBase
     {
         #region Setter
@@ -20,19 +16,19 @@ namespace UI.ViewModel
         #endregion
 
         #region Commands
-        private ICommand abrirTelaPessoa;
-        private ICommand abrirTelaPet;
-        private ICommand abrirTelaRaca;
-        private ICommand abrirTelaBuscaPet;
-        private ICommand abrirTelaBuscaPessoa;
-        private ICommand abrirTelaAdocao;
+        private ICommand _abrirTelaPessoa;
+        private ICommand _abrirTelaPet;
+        private ICommand _abrirTelaRaca;
+        private ICommand _abrirTelaBuscaPet;
+        private ICommand _abrirTelaBuscaPessoa;
+        private ICommand _abrirTelaAdocao;
 
-        public ICommand? AbrirTelaAdocao => abrirTelaAdocao ??= new RelayCommand(AbreTelaAdocao);
-        public ICommand? AbrirTelaBuscaPessoa => abrirTelaBuscaPessoa ??= new RelayCommand(AbreTelaBuscaPessoa);
-        public ICommand? AbrirTelaPessoa => abrirTelaPessoa ??= new RelayCommand(AbreTelaPessoa);
-        public ICommand? AbrirTelaPet => abrirTelaPet ??= new RelayCommand(AbreTelaPet);
-        public ICommand? AbrirTelaRaca => abrirTelaRaca ??= new RelayCommand(AbreTelaRaca);
-        public ICommand? AbrirTelaBuscaPet => abrirTelaBuscaPet ??= new RelayCommand(AbreTelaBuscaPet);
+        public ICommand? AbrirTelaAdocao => _abrirTelaAdocao ??= new RelayCommand(AbreTelaAdocao);
+        public ICommand? AbrirTelaBuscaPessoa => _abrirTelaBuscaPessoa ??= new RelayCommand(AbreTelaBuscaPessoa);
+        public ICommand? AbrirTelaPessoa => _abrirTelaPessoa ??= new RelayCommand(AbreTelaPessoa);
+        public ICommand? AbrirTelaPet => _abrirTelaPet ??= new RelayCommand(AbreTelaPet);
+        public ICommand? AbrirTelaRaca => _abrirTelaRaca ??= new RelayCommand(AbreTelaRaca);
+        public ICommand? AbrirTelaBuscaPet => _abrirTelaBuscaPet ??= new RelayCommand(AbreTelaBuscaPet);
         #endregion
 
         #region Methods
@@ -64,9 +60,11 @@ namespace UI.ViewModel
         }
         #endregion
 
+        #region Constructor
         public MainViewModel()
         {
             WindowService = new WindowService();
         }
+        #endregion
     }
 }

@@ -14,94 +14,91 @@ namespace UI.ViewModel
     public class PetViewModel : ViewModelBase, IDataErrorInfo
     {
         #region Setters
-        private int codigo;
-        private string? nome;
-        private string? sexo;
-        private DateTime dataNascimento;
-        private int quantidadeVacinas;
-        private Guid ide;
-        private Guid racaIde;
-        private bool ativo;
-        private bool isMacho;
-        private bool isFemea;
-        private List<string> errors;
-        private RacaViewModel racaViewModel;
-        private Raca raca;
+        private int _codigo;
+        private string? _nome;
+        private string? _sexo;
+        private DateTime _dataNascimento;
+        private int _quantidadeVacinas;
+        private Guid _ide;
+        private Guid _racaIde;
+        private bool _ativo;
+        private bool _isMacho;
+        private bool _isFemea;
+        private readonly List<string> _errors;
+        private RacaViewModel _racaViewModel;
+        private Raca _raca;
 
         public Raca Raca
         {
-            get => raca;
-            set => OnPropertyChanged(ref raca, value, nameof(Raca));
+            get => _raca;
+            set => OnPropertyChanged(ref _raca, value, nameof(Raca));
         }
-
-
         public RacaViewModel RacaViewModel
         {
-            get => racaViewModel;
-            set => OnPropertyChanged(ref racaViewModel, value);
+            get => _racaViewModel;
+            set => OnPropertyChanged(ref _racaViewModel, value);
         }
-
         public bool IsMacho
         {
-            get => isMacho;
+            get => _isMacho;
             set {
-                if (isMacho != value)
-                    isMacho = value;
-                if (isMacho)
+                if (_isMacho != value)
+                    _isMacho = value;
+                if (_isMacho)
                     Sexo = "M";
                 RaisePropertyChange(nameof(IsMacho));
             }
         }
         public bool IsFemea
         {
-            get => isFemea;
+            get => _isFemea;
             set {
-                if (isFemea != value)
-                    isFemea = value;
-                if (isFemea)
+                if (_isFemea != value)
+                    _isFemea = value;
+                if (_isFemea)
                     Sexo = "F";
                 RaisePropertyChange(nameof(IsFemea));
             }
         }
         public int Codigo
         {
-            get => codigo;
-            set => OnPropertyChanged(ref codigo, value, nameof(Codigo));
+            get => _codigo;
+            set => OnPropertyChanged(ref _codigo, value, nameof(Codigo));
         }
         public string Nome
         {
-            get => nome ?? string.Empty;
-            set => OnPropertyChanged(ref nome, value, nameof(Nome));
+            get => _nome ?? string.Empty;
+            set => OnPropertyChanged(ref _nome, value, nameof(Nome));
         }
         public string Sexo
         {
-            get => sexo ?? string.Empty;
-            set => OnPropertyChanged(ref sexo, value, nameof(Sexo));
+            get => _sexo ?? string.Empty;
+            set => OnPropertyChanged(ref _sexo, value, nameof(Sexo));
         }
         public DateTime DataNascimento
         {
-            get => dataNascimento;
-            set => OnPropertyChanged(ref dataNascimento, value, nameof(DataNascimento));
+            get => _dataNascimento;
+            set => OnPropertyChanged(ref _dataNascimento, value, nameof(DataNascimento));
         }
         public int QuantidadeVacinas
         {
-            get => quantidadeVacinas;
-            set => OnPropertyChanged(ref quantidadeVacinas, value, nameof(QuantidadeVacinas));
+            get => _quantidadeVacinas;
+            set => OnPropertyChanged(ref _quantidadeVacinas, value, nameof(QuantidadeVacinas));
         }
         public Guid RacaIde
         {
-            get => racaIde;
-            set => OnPropertyChanged(ref racaIde, value, nameof(RacaIde));
+            get => _racaIde;
+            set => OnPropertyChanged(ref _racaIde, value, nameof(RacaIde));
         }
         public Guid Ide
         {
-            get => ide;
-            set => OnPropertyChanged(ref ide, value, nameof(Ide));
+            get => _ide;
+            set => OnPropertyChanged(ref _ide, value, nameof(Ide));
         }
         public bool Ativo
         {
-            get => ativo;
-            set => OnPropertyChanged(ref ativo, value, nameof(Ativo));
+            get => _ativo;
+            set => OnPropertyChanged(ref _ativo, value, nameof(Ativo));
         }
         #endregion
 
@@ -111,21 +108,21 @@ namespace UI.ViewModel
 
         public ICommand NovoPetCommand => novoPetCommand ??= new RelayCommand(NovoPet, canExecute=>true);
 
-        public ICommand InserePetCommand => inserePetCommand ?? (inserePetCommand = new RelayCommand(InserePet, canExecute => canInserirPet));
+        public ICommand InserePetCommand => inserePetCommand ?? (inserePetCommand = new RelayCommand(InserePet, canExecute => _canInserirPet));
 
 
         #endregion
 
         #region Validation
-        public bool canInserirPet
+        public bool _canInserirPet
         {
             get {
-                errors.Clear();
-                errors.UniqueIfNotEmpty(this[nameof(Nome)]);
-                errors.UniqueIfNotEmpty(this[nameof(DataNascimento)]);
-                errors.UniqueIfNotEmpty(this[nameof(QuantidadeVacinas)]);
-                errors.UniqueIfNotEmpty(this[nameof(Raca)]);
-                return errors.Count == 0;
+                _errors.Clear();
+                _errors.UniqueIfNotEmpty(this[nameof(Nome)]);
+                _errors.UniqueIfNotEmpty(this[nameof(DataNascimento)]);
+                _errors.UniqueIfNotEmpty(this[nameof(QuantidadeVacinas)]);
+                _errors.UniqueIfNotEmpty(this[nameof(Raca)]);
+                return _errors.Count == 0;
             }
         }
         public string Error => throw new NotImplementedException();
@@ -158,7 +155,27 @@ namespace UI.ViewModel
         #endregion
 
         #region Methods
-
+        private void EscolheSexo(string sexo)
+        {
+            if (sexo == "M")
+            {
+                IsMacho = true;
+            }
+            else
+            {
+                IsFemea = true;
+            }
+        }
+        private void EscolheRaca(Guid racaIde)
+        {
+            foreach (var raca in RacaViewModel.Racas)
+            {
+                if (raca.Ide != racaIde)
+                    continue;
+                Raca = raca;
+                break;
+            }
+        }
         public void NovoPet(object o)
         {
             LoadPet(new Pet() { Sexo = "M" });
@@ -181,13 +198,13 @@ namespace UI.ViewModel
         }
         #endregion
 
+        #region Constructor
         public PetViewModel()
         {
-            errors = new List<string>();
+            _errors = new List<string>();
             RacaViewModel = new RacaViewModel();
-            isMacho = true;
+            IsMacho = true;
         }
-
         public void LoadPet(Pet pet)
         {
             Codigo = pet.Codigo;
@@ -198,26 +215,7 @@ namespace UI.ViewModel
             Ide = pet.Ide;
             EscolheRaca(pet.RacaIde);
         }
-        private void EscolheSexo(string sexo)
-        {
-            if (sexo == "M")
-            {
-                IsMacho = true;
-            }
-            else 
-            { 
-                IsFemea = true; 
-            }
-        }
-        private void EscolheRaca(Guid racaIde)
-        {
-            foreach (var raca in RacaViewModel.Racas)
-            {
-                if (raca.Ide != racaIde)
-                    continue;
-                Raca = raca;
-                break;
-            }
-        }
+        #endregion
+
     }
 }

@@ -15,79 +15,55 @@ namespace UI.ViewModel
     public class RacaViewModel : ViewModelBase, IDataErrorInfo
     {
         #region Setters
-        private ObservableCollection<Raca> racas;
-        private Raca selectedRaca;
-        private Guid selectedRacaIde;
-        private int selectedRacaCodigo;
-        private string? selectedRacaNome;
-        private readonly List<string> errors;
+        private ObservableCollection<Raca> _racas;
+        private Raca _selectedRaca;
+        private Guid _selectedRacaIde;
+        private int _selectedRacaCodigo;
+        private string? _selectedRacaNome;
+        private readonly List<string> _errors;
         public string SelectedRacaNome
         {
-            get => selectedRacaNome ?? string.Empty;
-            set => OnPropertyChanged(ref selectedRacaNome, value, nameof(SelectedRacaNome));
+            get => _selectedRacaNome ?? string.Empty;
+            set => OnPropertyChanged(ref _selectedRacaNome, value, nameof(SelectedRacaNome));
         }
-
-
         public int SelectedRacaCodigo
         {
-            get => selectedRacaCodigo;
-            set => OnPropertyChanged(ref selectedRacaCodigo, value, nameof(SelectedRacaCodigo));
+            get => _selectedRacaCodigo;
+            set => OnPropertyChanged(ref _selectedRacaCodigo, value, nameof(SelectedRacaCodigo));
         }
-
-
         public Guid SelectedRacaIde
         {
-            get => selectedRacaIde;
-            set => OnPropertyChanged(ref selectedRacaIde, value, nameof(SelectedRacaIde));
+            get => _selectedRacaIde;
+            set => OnPropertyChanged(ref _selectedRacaIde, value, nameof(SelectedRacaIde));
         }
-
-
         public Raca SelectedRaca
         {
-            get => selectedRaca;
+            get => _selectedRaca;
             set {
-                if (selectedRaca != value)
+                if (_selectedRaca != value)
                 {
-                    selectedRaca = value;
+                    _selectedRaca = value;
                     SetSelectedRacaValues(value);
                     RaisePropertyChange(nameof(SelectedRaca));
                     RaisePropertyChange(nameof(CanEditar));
                 }
             }
         }
-
         public ObservableCollection<Raca> Racas
         {
-            get => racas;
-            set => OnPropertyChanged(ref racas, value, nameof(Racas));
+            get => _racas;
+            set => OnPropertyChanged(ref _racas, value, nameof(Racas));
         }
         #endregion
 
         #region Commands
-        private void SetSelectedRacaValues(Raca selectedRaca)
-        {
-            if (selectedRaca is null)
-            {
-                SelectedRacaCodigo = 0;
-                SelectedRacaNome = string.Empty;
-                SelectedRacaIde = Guid.Empty;
-            }
-            else
-            {
-                SelectedRacaCodigo = selectedRaca.Codigo;
-                SelectedRacaIde = selectedRaca.Ide;
-                SelectedRacaNome = selectedRaca.Nome;
-            }
-        }
+        private ICommand _insereRacaCommand;
+        private ICommand _buscaRacaCommand;
+        private ICommand _novaRacaCommand;
 
-        private ICommand insereRacaCommand;
-        private ICommand buscaRacaCommand;
-        private ICommand novaRacaCommand;
-        public ICommand NovaRacaCommand => novaRacaCommand ?? (novaRacaCommand = new RelayCommand(NovaRaca, canExecute => true));
-
-
-        public ICommand BuscaRacaCommand => buscaRacaCommand ?? (buscaRacaCommand = new RelayCommand(BuscaRaca, canExecute => true));
-        public ICommand InsereRacaCommand => insereRacaCommand ?? (insereRacaCommand = new RelayCommand(InsereRaca, canExecute => CanInserirRaca));
+        public ICommand NovaRacaCommand => _novaRacaCommand ??= new RelayCommand(NovaRaca, canExecute => true);
+        public ICommand BuscaRacaCommand => _buscaRacaCommand ??= new RelayCommand(BuscaRaca, canExecute => true);
+        public ICommand InsereRacaCommand => _insereRacaCommand ??= new RelayCommand(InsereRaca, canExecute => CanInserirRaca);
         #endregion
 
         #region Validation
@@ -95,13 +71,12 @@ namespace UI.ViewModel
         public bool CanInserirRaca
         {
             get {
-                errors.Clear();
-                errors.UniqueIfNotEmpty(this[nameof(SelectedRacaNome)]);
-                return errors.Count == 0;
+                _errors.Clear();
+                _errors.UniqueIfNotEmpty(this[nameof(SelectedRacaNome)]);
+                return _errors.Count == 0;
             }
         }
         public string Error => throw new NotImplementedException();
-
         public string this[string columnName]
         {
             get {
@@ -118,6 +93,21 @@ namespace UI.ViewModel
         #endregion
 
         #region Methods
+        private void SetSelectedRacaValues(Raca selectedRaca)
+        {
+            if (selectedRaca is null)
+            {
+                SelectedRacaCodigo = 0;
+                SelectedRacaNome = string.Empty;
+                SelectedRacaIde = Guid.Empty;
+            }
+            else
+            {
+                SelectedRacaCodigo = selectedRaca.Codigo;
+                SelectedRacaIde = selectedRaca.Ide;
+                SelectedRacaNome = selectedRaca.Nome;
+            }
+        }
         public void NovaRaca(object o)
         {
             Racas.Add(new Raca());
@@ -145,13 +135,15 @@ namespace UI.ViewModel
 
         #endregion
 
-
+        #region Constructor
         public RacaViewModel()
         {
             Racas = new ObservableCollection<Raca>();
-            errors = new();
+            _errors = new();
             SelectedRaca = null;
             BuscaRaca(null);
         }
+        #endregion
+
     }
 }
