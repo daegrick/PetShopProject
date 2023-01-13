@@ -13,8 +13,7 @@ namespace DAL
     public class AcessoDB
     {
         private const string arqIdFile = "ArqId.txt";
-        private static StringBuilder sb;
-        private static SqlConnection connection;
+        private static SqlConnection? connection;
         public static SqlConnection DBAccess()
         {
             connection = new(GetStringConnection());
@@ -47,6 +46,7 @@ namespace DAL
         {
             return command.ExecuteReader();
         }
+
         internal static void CloseConnection()
         {
             if(connection != null && connection.State != ConnectionState.Closed)

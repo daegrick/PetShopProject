@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using System.Text;
 using System.Data;
+using DAL.Factory;
 
 namespace DAL
 {
@@ -10,20 +11,20 @@ namespace DAL
         public static IEnumerable<Raca> Busca()
         {
             List<Raca> racas = new();
-
             string query = "SELECT Codigo, Nome, Ide FROM Raca ORDER BY Nome;";
-            using var conn = AcessoDB.DBAccess();
-            using var command = new SqlCommand(query, conn);
-            using var reader = AcessoDB.Read(command);
-            while (reader.Read())
+            try
             {
-                Raca raca = new()
+                using var conn = AcessoDB.DBAccess();
+                using var command = new SqlCommand(query, conn);
+                using var reader = AcessoDB.Read(command);
+                while (reader.Read())
                 {
-                    Codigo = reader.GetInt32("Codigo"),
-                    Nome = reader.GetString("Nome"),
-                    Ide = reader.GetGuid("Ide")
-                };
-                racas.Add(raca);
+                    racas.Add(RacaFactory.Get(reader));
+                }
+            }
+            catch (SqlException ex)
+            {
+                ExceptionManager.TrataException(ex);
             }
             AcessoDB.CloseConnection();
             return racas;
@@ -43,11 +44,11 @@ namespace DAL
                     retorno.Add(reader.GetGuid("Ide"), reader.GetString("Nome"));
                 }
                 AcessoDB.CloseConnection();
-            } catch (SqlException exception) {
-
+            }
+            catch (SqlException exception)
+            {
                 ExceptionManager.TrataException(exception);
             }
-
             return retorno;
         }
 
@@ -55,16 +56,17 @@ namespace DAL
         {
             try
             {
-            string query = "INSERT INTO Raca (Nome, Ide) OUTPUT inserted.Codigo VALUES (@Codigo, @Ide);";
-            using var conn = AcessoDB.DBAccess();
-            using var command = new SqlCommand(query, conn);
-            string[] fields = { "@Codigo", "@Ide" };
-            object[] values = { raca.Nome, Guid.NewGuid() };
-            AcessoDB.FillParameters(command, fields, values);
-            raca.Codigo = (int)command.ExecuteScalar();
-            AcessoDB.CloseConnection();
-            return "Raça inserida com sucesso!";
-            }catch (SqlException exception)
+                string query = "INSERT INTO Raca (Nome, Ide) OUTPUT inserted.Codigo VALUES (@Codigo, @Ide);";
+                using var conn = AcessoDB.DBAccess();
+                using var command = new SqlCommand(query, conn);
+                string[] fields = { "@Codigo", "@Ide" };
+                object[] values = { raca.Nome, Guid.NewGuid() };
+                AcessoDB.FillParameters(command, fields, values);
+                raca.Codigo = (int)command.ExecuteScalar();
+                AcessoDB.CloseConnection();
+                return "Raça inserida com sucesso!";
+            }
+            catch (SqlException exception)
             {
                 return ExceptionManager.TrataException(exception);
             }
