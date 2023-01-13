@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
         xmlns:vm="clr-namespace:UI.ViewModel"
         xmlns:local="clr-namespace:UI"
+              xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Pet Shop do Desafeto" Icon="{StaticResource ImageDog}"  Height="290" MaxHeight="290" MinHeight="290" MinWidth="330" MaxWidth="500">
     <Grid>
@@ -38,6 +40,6 @@
             <RadioButton Content="Feminino" IsChecked="{Binding IsFeminino, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <RadioButton Content="Outro" IsChecked="{Binding IsOutro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <DatePicker Grid.Row="4" Grid.Column="1" Width="100" SelectedDate="{Binding Nascimento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left"/>
+        <xceed:MaskedTextBox Grid.Row="4" Grid.Column="1" Width="100" Mask="00/00/0000" ValueDataType="{x:Type s:DateTime}" Value="{Binding Nascimento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left"/>
     </Grid>
 </RibbonWindow>

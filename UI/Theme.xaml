@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit">
     
     <SolidColorBrush x:Key="ColorMainGrid" Color="#bdd37d" Opacity="0.7"/>
     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Gray"/>
@@ -17,6 +18,23 @@
     <BitmapImage UriSource="Images/confirm.png" x:Key="ImageConfirm"/>
 
     <Style TargetType="TextBox">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Height" Value="23"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <DockPanel LastChildFill="true">
+                        <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
+                            <Border BorderBrush="red" BorderThickness="1" />
+                        </AdornedElementPlaceholder>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="xceed:MaskedTextBox">
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Height" Value="23"/>
         <Setter Property="Validation.ErrorTemplate">
