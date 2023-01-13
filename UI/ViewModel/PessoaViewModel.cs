@@ -99,12 +99,7 @@ namespace UI.ViewModel
         #region Methods
         public void NovaPessoa(object o)
         {
-            Codigo = 0;
-            Nome =string.Empty;
-            IsMasculino = true;
-            DataNascimento = DateTime.Now;
-            Ide = Guid.Empty;
-            Ativo = true;
+            LoadPessoa(new Pessoa());
         }
         public void InserePessoa(object o)
         {
@@ -112,7 +107,7 @@ namespace UI.ViewModel
             {
                 Codigo = Codigo,
                 Nome = Nome,
-                Nascimento = DataNascimento,
+                DataNascimento = DataNascimento,
                 Sexo = Sexo,
                 Ide = Ide,
                 Ativo = Ativo
@@ -135,7 +130,7 @@ namespace UI.ViewModel
                     _isOutro = true;
                     break;
             }
-            DataNascimento = pessoa.Nascimento;
+            DataNascimento = pessoa.DataNascimento;
             Ide = pessoa.Ide;
         }
 
