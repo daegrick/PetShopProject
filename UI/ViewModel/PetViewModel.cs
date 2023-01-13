@@ -195,6 +195,7 @@ namespace UI.ViewModel
                 Ativo = Ativo
             };
             MessageBox.Show(PetBLL.Inserir(pet));
+            LoadPet(new Pet());
         }
         public void Dispose()
         {
