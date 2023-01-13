@@ -40,6 +40,6 @@
             <RadioButton Content="Feminino" IsChecked="{Binding IsFeminino, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <RadioButton Content="Outro" IsChecked="{Binding IsOutro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <xceed:MaskedTextBox Grid.Row="4" Grid.Column="1" Width="100" Mask="00/00/0000" ValueDataType="{x:Type s:DateTime}" Value="{Binding Nascimento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left"/>
+        <xceed:MaskedTextBox Grid.Row="4" Grid.Column="1" Width="100" Mask="00/00/0000" ValueDataType="{x:Type s:DateTime}" Value="{Binding DataNascimento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,ValidatesOnNotifyDataErrors=True}" HorizontalAlignment="Left"/>
     </Grid>
 </RibbonWindow>
