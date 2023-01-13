@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls.Ribbon;
+using UI.ViewModel;
 
 namespace UI
 {
@@ -10,6 +11,12 @@ namespace UI
         public PessoaSearchUI()
         {
             InitializeComponent();
+            Closing += PessoaSearchUI_Closing;
+        }
+
+        private void PessoaSearchUI_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ((BuscaPessoaViewModel)DataContext).Dispose();
         }
     }
 }

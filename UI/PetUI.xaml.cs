@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Ribbon;
+using UI.ViewModel;
 
 namespace UI
 {
@@ -11,6 +12,12 @@ namespace UI
         public PetUI()
         {
             InitializeComponent();
+            Closing += PetUI_Closing;
+        }
+
+        private void PetUI_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ((PetViewModel)DataContext).Dispose();
         }
     }
 }

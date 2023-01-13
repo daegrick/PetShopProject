@@ -1,12 +1,13 @@
 ﻿using BLL.Controle;
 using DTO;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using UI.Services;
 
 namespace UI.ViewModel
 {
-    public class BuscaPessoaViewModel : ViewModelBase
+    public class BuscaPessoaViewModel : ViewModelBase, IDisposable
     {
         #region Setters
         private string? _pesquisaNome;
@@ -55,6 +56,12 @@ namespace UI.ViewModel
             {
                 Pessoas.Add(pessoa);
             }
+        }
+
+        public void Dispose()
+        {
+            Pessoas.Clear();
+            SelectedPessoa = null;
         }
         #endregion
 

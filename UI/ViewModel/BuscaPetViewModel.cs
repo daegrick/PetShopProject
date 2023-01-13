@@ -8,7 +8,7 @@ using UI.Services;
 
 namespace UI.ViewModel
 {
-    public class BuscaPetViewModel : ViewModelBase
+    public class BuscaPetViewModel : ViewModelBase, IDisposable
     {
         #region Setters
         private ObservableCollection<Pet> _pets;
@@ -80,6 +80,13 @@ namespace UI.ViewModel
             {
                 Pets.Add(pet);
             }
+        }
+
+        public void Dispose()
+        {
+            Pets.Clear();
+            SelectedPet = null;
+            PesquisaNome = string.Empty;
         }
 
         #endregion

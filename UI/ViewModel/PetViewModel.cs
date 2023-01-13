@@ -11,7 +11,7 @@ using UI.Extras;
 namespace UI.ViewModel
 {
 
-    public class PetViewModel : ViewModelBase, IDataErrorInfo
+    public class PetViewModel : ViewModelBase, IDataErrorInfo, IDisposable
     {
         #region Setters
         private int _codigo;
@@ -196,6 +196,10 @@ namespace UI.ViewModel
             };
             MessageBox.Show(PetBLL.Inserir(pet));
         }
+        public void Dispose()
+        {
+            LoadPet(new Pet());
+        }
         #endregion
 
         #region Constructor
@@ -215,6 +219,8 @@ namespace UI.ViewModel
             Ide = pet.Ide;
             EscolheRaca(pet.RacaIde);
         }
+
+        
         #endregion
 
     }
