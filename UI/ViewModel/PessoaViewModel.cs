@@ -9,7 +9,7 @@ using UI.Extras;
 
 namespace UI.ViewModel
 {
-    public class PessoaViewModel : ViewModelBase, IDataErrorInfo
+    public class PessoaViewModel : ViewModelBase, IDataErrorInfo, IDisposable
     {
         #region Setters
         private int _codigo;
@@ -132,6 +132,11 @@ namespace UI.ViewModel
             }
             DataNascimento = pessoa.DataNascimento;
             Ide = pessoa.Ide;
+        }
+
+        public void Dispose()
+        {
+            LoadPessoa(new Pessoa());
         }
 
         #endregion

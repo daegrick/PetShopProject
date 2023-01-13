@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows.Controls.Ribbon;
+using UI.ViewModel;
 
 namespace UI
 {
@@ -7,7 +8,8 @@ namespace UI
     /// Interaction logic for AdocaoUI.xaml
     /// </summary>
     public partial class AdocaoUI : RibbonWindow
-    {        public AdocaoUI()
+    {        
+        public AdocaoUI()
         {
             InitializeComponent();
         }
