@@ -13,6 +13,8 @@
     <BitmapImage UriSource="Images/paw.png" x:Key="ImagePaw"/>
     <BitmapImage UriSource="Images/user.png" x:Key="ImageUser"/>
     <BitmapImage UriSource="Images/dog.png" x:Key="ImageDog"/>
+    <BitmapImage UriSource="Images/database.png" x:Key="ImageDatabase"/>
+    <BitmapImage UriSource="Images/confirm.png" x:Key="ImageConfirm"/>
 
     <Style TargetType="TextBox">
         <Setter Property="Margin" Value="5"/>
@@ -123,5 +125,10 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5"/>
+    </Style>
+    
+    <Style TargetType="PasswordBox">
+        <Setter Property="Height" Value="23"></Setter>
+        <Setter Property="Margin" Value="5"></Setter>
     </Style>
 </ResourceDictionary>

@@ -1,4 +1,7 @@
-﻿namespace UI.Services
+﻿using PetShopDesafeto;
+using System;
+
+namespace UI.Services
 {
     public class WindowService : IWindowService
     {
@@ -30,6 +33,11 @@
         public void AbrirTelaRaca()
         {
             new RacaUI().ShowDialog();
-        } 
+        }
+
+        public void AbrirTelaConfiguracaoArqID()
+        {
+            new ArqIDUI().ShowDialog();
+        }
     }
 }

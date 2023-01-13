@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.IO;
+using System.Windows.Input;
 using UI.Services;
 
 namespace UI.ViewModel
@@ -64,6 +65,8 @@ namespace UI.ViewModel
         public MainViewModel()
         {
             WindowService = new WindowService();
+            if (!File.Exists("ArqId.txt"))
+                WindowService.AbrirTelaConfiguracaoArqID();
         }
         #endregion
     }

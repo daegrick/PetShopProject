@@ -6,13 +6,15 @@ namespace DAL
     {
         public static string TrataException(SqlException exception)
         {
-            switch (exception.ErrorCode)
+            switch (exception.Number)
             {
+                case 18456:
+                    return "Erro ao conectar com o login especificado. Verifique o usuário e senha e tente novamente.";
+                case 53:
+                    return "Erro de conexão - verifique as informações e tente novamente.";
                 default:
-                    return $"{exception.ErrorCode} - {exception.Message}";
-                    break;
+                    return $"{exception.Number} - {exception.Message}";
             }
-            return string.Empty;
         }
     }
 }
