@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <None Remove="Images\bheart.png" />
+    <None Remove="Images\confirm.png" />
+    <None Remove="Images\database.png" />
     <None Remove="Images\dog.png" />
     <None Remove="Images\heart-plain.png" />
     <None Remove="Images\heart.png" />
@@ -30,6 +32,12 @@
 
   <ItemGroup>
     <Resource Include="Images\bheart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\confirm.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\database.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\dog.png">

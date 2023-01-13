@@ -22,7 +22,7 @@
                 <RibbonTab Header="Funcoes">
                     <RibbonGroup Header="Funcoes">
                         <RibbonButton LargeImageSource="{StaticResource ImageSearch}" Label="Pesquisar" Command="{Binding BuscaPetCommand, Mode=OneWay}"/>
-                        <RibbonButton SmallImageSource="{StaticResource ImagePaw}" Label="Adicionar" Command="{Binding InserePetCommand, Mode=OneWay}"/>
+                        <RibbonButton SmallImageSource="{StaticResource ImageAdd}" Label="Adicionar" Command="{Binding InserePetCommand, Mode=OneWay}"/>
                         <RibbonButton SmallImageSource="{StaticResource ImagePaw}" Label="Editar" Command="{Binding EditaPetCommand,Mode=OneWay}"/>
                     </RibbonGroup>
                 </RibbonTab>
