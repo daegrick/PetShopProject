@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+              xmlns:s="clr-namespace:System;assembly=mscorlib"
         xmlns:vm="clr-namespace:UI.ViewModel"
-    xmlns:local="clr-namespace:UI" d:DataContext="{d:DesignInstance Type=vm:PetViewModel}"
+    xmlns:local="clr-namespace:UI" xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit" d:DataContext="{d:DesignInstance Type=vm:PetViewModel}"
               mc:Ignorable="d"
         Title="Pet Shop do Desafeto" Icon="{StaticResource ImageDog}"  Height="260" Width="450">
     <Grid >
@@ -15,12 +16,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="76"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Ribbon Grid.ColumnSpan="4">
+        <Ribbon Grid.ColumnSpan="5">
             <RibbonTab Header="Funcoes">
                 <RibbonGroup Header="Funcoes">
                     <RibbonButton LargeImageSource="{StaticResource ImagePaw}" Label="Salvar" Command="{Binding InserePetCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -42,7 +43,7 @@
             <RadioButton Content="Macho" IsChecked="{Binding IsMacho, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <RadioButton Content="Femea" IsChecked="{Binding IsFemea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding DataNascimento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}"/>
+        <xceed:MaskedTextBox Grid.Row="3" Grid.Column="1" Mask="00/00/0000" ValueDataType="{x:Type s:DateTime}" Value="{Binding DataNascimento, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}"/>
         <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding QuantidadeVacinas,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,ValidatesOnNotifyDataErrors=True,ValidatesOnDataErrors=True}"/>
     </Grid>
 </RibbonWindow>
