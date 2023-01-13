@@ -3,6 +3,7 @@ using DTO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using UI.Services;
@@ -75,12 +76,18 @@ namespace UI.ViewModel
 
         public void InserePet(Pet pet)
         {
-            if (!pet.IsAdotado)
+            if (pet.IsAdotado)
+            {
+                MessageBox.Show("Este pet já está adotado!");
+                return;
+            }
+            if (Pets.Count == 0)
             {
                 Pets.Add(pet);
                 return;
             }
-            MessageBox.Show("Este pet já está adotado!");
+            if(!Pets.Where(p=> p == pet).Any())
+                Pets.Add(pet);
         }
 
         public void CancelaAdocao(object o)
