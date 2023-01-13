@@ -113,6 +113,7 @@ namespace UI.ViewModel
                 Ativo = Ativo
             };
             MessageBox.Show(PessoaBLL.Incluir(pessoa));
+            LoadPessoa(new Pessoa());
         }
         public void LoadPessoa(Pessoa pessoa)
         {
