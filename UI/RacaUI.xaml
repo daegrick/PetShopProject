@@ -6,7 +6,7 @@
         xmlns:viewModel="clr-namespace:UI.ViewModel"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="Pet Shop do Desafeto" Icon="{StaticResource ImageDog}" Height="450" Width="350">
+        Title="Pet Shop do Desafeto" Icon="{StaticResource ImageDog}" Height="450" Width="350" MinWidth="350" MinHeight="450">
     <RibbonWindow.DataContext>
         <viewModel:RacaViewModel/>
     </RibbonWindow.DataContext>

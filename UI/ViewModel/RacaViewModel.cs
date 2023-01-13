@@ -131,6 +131,7 @@ namespace UI.ViewModel
             };
             MessageBox.Show(RacaBLL.Insere(raca));
             RaisePropertyChange(nameof(Racas));
+            BuscaRaca(null);
         }
 
         #endregion
