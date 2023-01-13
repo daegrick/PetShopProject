@@ -15,7 +15,7 @@ namespace UI.ViewModel
         private int _codigo;
         private string _nome;
         private string _sexo;
-        private DateTime _nascimento;
+        private DateTime _dataNascimento;
         private Guid _ide;
         private bool _ativo;
         private bool _isMasculino;
@@ -38,10 +38,10 @@ namespace UI.ViewModel
             get => _sexo;
             set => OnPropertyChanged(ref _sexo, value, nameof(Sexo));
         }
-        public DateTime Nascimento
+        public DateTime DataNascimento
         {
-            get => _nascimento;
-            set => OnPropertyChanged(ref _nascimento, value, nameof(Nascimento));
+            get => _dataNascimento;
+            set => OnPropertyChanged(ref _dataNascimento, value, nameof(DataNascimento));
         }
         public Guid Ide
         {
@@ -102,7 +102,7 @@ namespace UI.ViewModel
             Codigo = 0;
             Nome =string.Empty;
             IsMasculino = true;
-            Nascimento = DateTime.Now;
+            DataNascimento = DateTime.Now;
             Ide = Guid.Empty;
             Ativo = true;
         }
@@ -112,7 +112,7 @@ namespace UI.ViewModel
             {
                 Codigo = Codigo,
                 Nome = Nome,
-                Nascimento = Nascimento,
+                Nascimento = DataNascimento,
                 Sexo = Sexo,
                 Ide = Ide,
                 Ativo = Ativo
@@ -135,7 +135,7 @@ namespace UI.ViewModel
                     _isOutro = true;
                     break;
             }
-            Nascimento = pessoa.Nascimento;
+            DataNascimento = pessoa.Nascimento;
             Ide = pessoa.Ide;
         }
 
@@ -148,7 +148,7 @@ namespace UI.ViewModel
             {
                 _errors.Clear();
                 _errors.UniqueIfNotEmpty(this[nameof(Sexo)]);
-                _errors.UniqueIfNotEmpty(this[nameof(Nascimento)]);
+                _errors.UniqueIfNotEmpty(this[nameof(DataNascimento)]);
                 _errors.UniqueIfNotEmpty(this[nameof(Nome)]);
                 return _errors.Count == 0;
             }
@@ -164,8 +164,8 @@ namespace UI.ViewModel
                             return "Entre com um nome!";
                         // TODO inserir validação Regex (?)
                         break;
-                    case nameof(Nascimento):
-                        if (Nascimento < new DateTime(1800, 1, 10) || Nascimento > DateTime.Now.Subtract(TimeSpan.FromDays(365)))
+                    case nameof(DataNascimento):
+                        if (DataNascimento < new DateTime(1800, 1, 10) || DataNascimento > DateTime.Now.Subtract(TimeSpan.FromDays(365)))
                             return "Entre com uma data válida!";
                         break;
                 }
@@ -179,6 +179,7 @@ namespace UI.ViewModel
         public PessoaViewModel()
         {
             _errors = new();
+            IsMasculino = true;
         }
         #endregion
     }

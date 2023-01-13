@@ -12,7 +12,7 @@ namespace DAL.Factory
             {
                 Codigo = reader.GetInt32("Codigo"),
                 Nome = reader.GetString("Nome"),
-                Nascimento = reader.GetDateTime("DataNascimento"),
+                DataNascimento = reader.GetDateTime("DataNascimento"),
                 Sexo = reader.GetString("Sexo"),
                 Ide = reader.GetGuid("Ide")
             };

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PetShopDesafeto" xmlns:viewmodel="clr-namespace:UI.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ArqIDViewModel}"
               xmlns:viewModel="clr-namespace:UI.ViewModel"
               mc:Ignorable="d"
-        Title="Configuração de Conexão" Height="450" Width="300">
+        Title="Configuração de Conexão" Icon="{StaticResource ImageDog}" Height="370" MaxHeight="370" MinHeight="370" Width="300" MinWidth="250" MaxWidth="350">
     <RibbonWindow.DataContext>
         <viewmodel:ArqIDViewModel/>
     </RibbonWindow.DataContext>
