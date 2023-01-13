@@ -1,6 +1,6 @@
-﻿using DTO;
+﻿using DAL.Factory;
+using DTO;
 using Microsoft.Data.SqlClient;
-using System.Data;
 
 namespace DAL
 {
@@ -40,15 +40,7 @@ namespace DAL
                 var reader = AcessoDB.Read(command);
                 while (reader.Read())
                 {
-                    Pessoa pessoa = new()
-                    {
-                        Codigo = reader.GetInt32("Codigo"),
-                        Nome = reader.GetString("Nome"),
-                        Nascimento = reader.GetDateTime("DataNascimento"),
-                        Sexo = reader.GetString("Sexo"),
-                        Ide = reader.GetGuid("Ide")
-                    };
-                    pessoas.Add(pessoa);
+                    pessoas.Add(PessoaFactory.Get(reader));
                 }
             }
             catch (SqlException exception)
@@ -75,11 +67,7 @@ namespace DAL
                 using var reader = AcessoDB.Read(command);
                 if (reader.Read())
                 {
-                    pessoa.Codigo = reader.GetInt32("Codigo");
-                    pessoa.Nome = reader.GetString("Nome");
-                    pessoa.Nascimento = reader.GetDateTime("DataNascimento");
-                    pessoa.Sexo = reader.GetString("Sexo");
-                    pessoa.Ide = reader.GetGuid("Ide");
+                    pessoa = PessoaFactory.Get(reader);
                 }
                 AcessoDB.CloseConnection();
 

@@ -15,16 +15,7 @@ namespace DAL
                 try
                 {
                     ApagaRegistrosAntigos(conn, transaction, pessoa);
-                    using var command = new SqlCommand(query, conn);
-                    command.Transaction = transaction;
-                    foreach (var item in pets)
-                    {
-                        command.Parameters.Clear();
-                        string[] names = new string[] { "@CodigoPessoa", "@IdePessoa", "@CodigoPet", "@IdePet" };
-                        object[] values = new object[] { pessoa.Codigo, pessoa.Ide, item.Codigo, item.Ide };
-                        AcessoDB.FillParameters(command, names, values);
-                        AcessoDB.ExecuteCommand(command);
-                    }
+                    InserePetsNovos(conn, query, transaction, pessoa, pets);
                     transaction.Commit();
                     AcessoDB.CloseConnection();
                     return "Pets adotados com sucesso!";
@@ -37,8 +28,24 @@ namespace DAL
             {
                return ExceptionManager.TrataException(ex);
             }
+            finally
+            {
+                AcessoDB.CloseConnection();
+            }
         }
-
+        private static void InserePetsNovos(SqlConnection conn, string query, SqlTransaction transaction, Pessoa pessoa, IEnumerable<Pet> pets)
+        {
+            using var command = new SqlCommand(query, conn);
+            command.Transaction = transaction;
+            foreach (var pet in pets)
+            {
+                command.Parameters.Clear();
+                string[] names = new string[] { "@CodigoPessoa", "@IdePessoa", "@CodigoPet", "@IdePet" };
+                object[] values = new object[] { pessoa.Codigo, pessoa.Ide, pet.Codigo, pet.Ide };
+                AcessoDB.FillParameters(command, names, values);
+                AcessoDB.ExecuteCommand(command);
+            }
+        }
         private static void ApagaRegistrosAntigos(SqlConnection conn, SqlTransaction transaction, Pessoa pessoa)
         {
             string query = "DELETE FROM PetsDaPessoa WHERE IdePessoa = @Ide";

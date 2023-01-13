@@ -1,9 +1,6 @@
-﻿using DTO;
+﻿using DAL.Factory;
+using DTO;
 using Microsoft.Data.SqlClient;
-using System.Data;
-using System.Data.SqlTypes;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace DAL
 {
@@ -53,30 +50,18 @@ namespace DAL
                 "WITH PetSet as " +
                 "(SELECT Codigo, Nome, DataNascimento, Sexo, QuantidadeVacinas, IdeRaca, Ide, CASE WHEN IdePet IS NULL THEN 0 ELSE 1 END as IsAdotado " +
                 "FROM Pet LEFT JOIN PetsDaPessoa ON Pet.Ide = PetsDaPessoa.IdePet) " +
-                "select * from PetSet WHERE(1 = 1 AND Nome LIKE @Nome) " /*AND (1 = 1 AND IsAdotado IN (@IsAdotado))*/+" ORDER BY Codigo; ";
+                $"SELECT * FROM PetSet WHERE(1 = 1 AND Nome LIKE @Nome) { FiltroAdotado(isAdotado) } ORDER BY Codigo; ";
             try
             {
                 using var conn = AcessoDB.DBAccess();
                 using var command = new SqlCommand(query, conn);
-                //var numeros = isAdotado is null ? new object[] { 0, 1 } : new object[] {Convert.ToInt32( isAdotado.Value )};
-                string[] names = new string[] { "@Nome", /*"@IsAdotado"*/ };
-                object[] values = new object[] { $"%{nome}%",/*numeros*/ };
+                string[] names = new string[] { "@Nome", isAdotado.HasValue ? "@IsAdotado" : ""}; //TODO Pode melhorar com certeza
+                object[] values = new object[] { $"%{nome}%", isAdotado.HasValue ? isAdotado.Value : DBNull.Value }; //TODO Pode melhorar com certeza
                 AcessoDB.FillParameters(command, names, values);
                 using var reader = AcessoDB.Read(command);
                 while (reader.Read())
                 {
-                    Pet pet = new()
-                    {
-                        Codigo = reader.GetInt32("Codigo"),
-                        Nome = reader.GetString("Nome"),
-                        DataNascimento = reader.GetDateTime("DataNascimento"),
-                        Sexo = reader.GetString("Sexo"),
-                        QuantidadeVacinas = reader.GetInt32("QuantidadeVacinas"),
-                        Ide = reader.GetGuid("Ide"),
-                        RacaIde = reader.GetGuid("IdeRaca"),
-                        IsAdotado = reader.GetInt32("IsAdotado") == 1
-                    };
-                    pets.Add(pet);
+                    pets.Add(PetFactory.Get(reader));
                 }
                 AcessoDB.CloseConnection();
             } catch(SqlException exception)
@@ -85,6 +70,7 @@ namespace DAL
             }
             return pets;
         }
+        private static string FiltroAdotado(bool? isAdotado) => isAdotado.HasValue ? " AND IsAdotado = @IsAdotado " : string.Empty; //TODO Pode melhorar com certeza
         public static IEnumerable<Pet> BuscarPetsAdotados(Pessoa pessoa)
         {
             List<Pet> pets = new();
@@ -99,17 +85,7 @@ namespace DAL
                 using var reader = AcessoDB.Read(command);
                 while (reader.Read())
                 {
-                    Pet pet = new()
-                    {
-                        Codigo = reader.GetInt32("Codigo"),
-                        Nome = reader.GetString("Nome"),
-                        DataNascimento = reader.GetDateTime("DataNascimento"),
-                        Sexo = reader.GetString("Sexo"),
-                        QuantidadeVacinas = reader.GetInt32("QuantidadeVacinas"),
-                        Ide = reader.GetGuid("Ide"),
-                        RacaIde = reader.GetGuid("IdeRaca")
-                    };
-                    pets.Add(pet);
+                    pets.Add(PetFactory.Get(reader, false));
                 }
                 AcessoDB.CloseConnection();
             }
