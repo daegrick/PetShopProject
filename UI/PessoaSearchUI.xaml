@@ -43,7 +43,7 @@
                   SelectedItem="{Binding SelectedPessoa}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nome" Binding="{Binding Nome, Mode=OneWay}" Width="3*"/>
-                <DataGridTextColumn Header="Idade" Binding="{Binding DataNascimento, Mode=OneWay,Converter={StaticResource IdadeConverter}}" Width="*"/>
+                <DataGridTextColumn Header="Idade" Binding="{Binding Nascimento, Mode=OneWay,Converter={StaticResource IdadeConverter}}" Width="*"/>
                 <DataGridTextColumn Header="Sexo" Width="*" Binding="{Binding Sexo, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>

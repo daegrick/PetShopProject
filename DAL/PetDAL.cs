@@ -28,13 +28,13 @@ namespace DAL
         {
             try
             {
-                string query = "UPDATE Pet set Nome = @Nome, DataNascimento = @DataNascimento, Sexo = @Sexo, QuantidadeVacinas =@QuantidadeVacinas, IdeRaca = @IdeRaca WHERE Ide = @Ide;";
+                string query = "UPDATE Pet set Nome = @Nome, DataNascimento = @DataNascimento, Sexo = @Sexo, QuantidadeVacinas =@QuantidadeVacinas, IdeRaca = @IdeRaca WHERE Ide = @Ide);";
                 using var conn = AcessoDB.DBAccess();
                 using var command = new SqlCommand(query, conn);
                 string[] names = { "@Nome", "@DataNascimento", "@Sexo", "@QuantidadeVacinas", "@IdeRaca", "@Ide" };
                 object[] values = { pet.Nome, pet.DataNascimento, pet.Sexo, pet.QuantidadeVacinas, pet.RacaIde, pet.Ide };
                 AcessoDB.FillParameters(command, names, values);
-                AcessoDB.ExecuteCommand(command);
+                pet.Codigo = (int)command.ExecuteScalar();
                 AcessoDB.CloseConnection();
                 return "Pet alterado com sucesso!";
             }
